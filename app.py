@@ -1,10 +1,3 @@
-# render修改
-import os
-import eventlet
-eventlet.monkey_patch()
-
-
-
 from flask import Flask, jsonify, request, render_template
 from flask_socketio import SocketIO
 from simulation_engine import SimulationEngine
@@ -78,11 +71,5 @@ def run_simulation():
         sim_engine.run(progress_callback=progress_callback)
         socketio.emit('simulation_complete', {"message": "Simulation completed"})
 
-# if __name__ == '__main__':
-#     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
-
-# 使用 Render 提供的 PORT 环境变量
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    print(f"Starting server on port {port}")
-    socketio.run(app, host='0.0.0.0', port=port)
+    socketio.run(app, debug=True, host='0.0.0.0', port=5000)
